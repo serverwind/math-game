@@ -1,3 +1,5 @@
+let myApp = {}; //один класс, в котором собраны переменные функций, которые должны передаваться из одной ф-ии в другую.
+
 //HTML разметка
 const firstNumHtml = document.getElementById('first-num');
 const secondNumHtml = document.getElementById('second-num');
@@ -8,41 +10,40 @@ const sendAnswerHtml = document.getElementById('send-answer');
 sendAnswerHtml.addEventListener('click', checkAnswer);
 
 function generateQuiz() {
-  let firstNum = Math.floor(Math.random() * 10) + 1; // генерация первого числа
-  let secondNum = Math.floor(Math.random() * 10) + 1; // генерация второго числа
-  let signArr = ['+', '-', '*', '/'];
+  myApp.firstNum = Math.floor(Math.random() * 10) + 1; // генерация первого числа
+  myApp.secondNum = Math.floor(Math.random() * 10) + 1; // генерация второго числа
+  myApp.signArr = ['+', '-', '*', '/'];
 
-  let sign = Math.floor(Math.random() * 4); // генерация символа
+  myApp.sign = Math.floor(Math.random() * 4); // генерация символа
 
-  return firstNum, secondNum, sign, signArr;
+  //Вывод примера в HTML
+  firstNumHtml.innerHTML = myApp.firstNum;
+  secondNumHtml.innerHTML = myApp.secondNum;
+  signHtml.innerHTML = myApp.signArr[myApp.sign];
+
 }
 
-function renderHtml(signArr, firstNum, secondNum, sign) {
-	//Вывод примера в HTML
-  firstNumHtml.innerHTML = firstNum;
-  secondNumHtml.innerHTML = secondNum;
-  signHtml.innerHTML = signArr[sign];
-}
+//Расчет правильного ответа
+function calcAnswer() {
+  generateQuiz(); //вызов функции генерации примера
 
-function checkAnswer(signArr, firstNum, secondNum, sign) {
-  let rightAnswer;
-  console.log(firstNum, secondNum, sign)
-
-  if (signArr[sign] == '+') {
-    rightAnswer = firstNum + secondNum;
-  } else if (signArr[sign] == '-') {
-    rightAnswer = firstNum - secondNum;
-  } else if (signArr[sign] == '*') {
-    rightAnswer = firstNum * secondNum;
+  if (myApp.signArr[myApp.sign] == '+') {
+    myApp.rightAnswer = myApp.firstNum + myApp.secondNum;
+  } else if (myApp.signArr[myApp.sign] == '-') {
+    myApp.rightAnswer = myApp.firstNum - myApp.secondNum;
+  } else if (myApp.signArr[myApp.sign] == '*') {
+    myApp.rightAnswer = myApp.firstNum * myApp.secondNum;
   } else {
-    rightAnswer = firstNum / secondNum;
+    myApp.rightAnswer = myApp.firstNum / myApp.secondNum;
   }
+}
 
-  if (rightAnswer == userAnswerHtml.value) {
+//Функция проверки правильный ли юзер дал ответ
+function checkAnswer() { 
+if (myApp.rightAnswer == userAnswerHtml.value) { //получаем его ответ
     console.log('ye')
   } else {
     console.log('naw')
   }
-  generateQuiz();
-  renderHtml();
+  calcAnswer(); //Сравниваем
 }
