@@ -1,0 +1,35 @@
+h1 {
+  text-align: center;
+}
+
+.answer {
+  margin-top: 20px;
+}
+
+#main {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.first-num,
+.sign,
+.second-num,
+.equal-sign,
+.right-answer {
+  background: lightblue;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  align-content: center;
+  text-align: center;
+}
+
+#first-num {
+  margin: 0 auto;
+}
+
+.hearts {
+  text-align:center;
+  margin-bottom:20px;
+}
