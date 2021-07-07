@@ -1,5 +1,6 @@
 let myApp = {}; //один класс, в котором собраны переменные функций, которые должны передаваться из одной ф-ии в другую.
 let hearts = 3; //количество жизней (возможностей ошибиться) на начало игры
+let score = 0; //количество очков на начало игры
 
 //HTML разметка
 const startGameHtml = document.getElementById('start-game');
@@ -9,8 +10,9 @@ const signHtml = document.getElementById('sign');
 const rightAnswerHtml = document.getElementById('right-answer');
 const userAnswerHtml = document.getElementById('user-answer');
 const sendAnswerHtml = document.getElementById('send-answer');
-const heartsHtml = document.querySelector('.hearts');
+const miscHtml = document.querySelector('.misc');
 const heartsAmountHtml = document.getElementById('hearts-amount');
+const scoreAmountHtml = document.getElementById('score-amount');
 const mainDivHtml = document.getElementById('main');
 const answerHtml = document.querySelector('.answer');
 const gameOverHtml = document.getElementById('game-over');
@@ -21,7 +23,7 @@ sendAnswerHtml.addEventListener('click', checkAnswer);
 //Показываем все блоки игры и генерируем первый пример
 function showGame() {
   startGameHtml.style.display = 'none';
-  heartsHtml.style.display = 'block';
+  miscHtml.style.display = 'grid';
   mainDivHtml.style.display = 'flex';
   answerHtml.style.display = 'block';
 
@@ -68,13 +70,14 @@ function calcAnswer() {
 //Функция проверки правильный ли юзер дал ответ
 function checkAnswer() {
   if (myApp.rightAnswer == userAnswerHtml.value) { //получаем его ответ
-    console.log('ye');
+    score++;
   } else {
     console.log('naw');
-    hearts -= 1;
+    hearts--;
   }
 
   calcAnswer(); //Сравниваем
 
   heartsAmountHtml.innerHTML = hearts;
+  scoreAmountHtml.innerHTML = score;
 }
